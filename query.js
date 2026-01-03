@@ -9,7 +9,10 @@ function query() {
     const ws = new WebSocket(url)
     ws.binaryType = 'arraybuffer'
 
-    ws.onopen = () => ws.send('Accept: MOTD')
+    ws.onopen = () => {
+        const acceptQuery = document.getElementById('acceptQuery').value.trim() || 'Accept: MOTD'
+        ws.send(acceptQuery)
+    }
 
     ws.onmessage = (e) => {
         if (typeof e.data === 'string') {
